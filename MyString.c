@@ -1,22 +1,10 @@
 #include <stdio.h>
 #include "MyString.h"
 
-#define NULLCHAR 0
-
-int main()
-{
-	char string1[] = "aaeeaaa\0";
-	char string2[] = "aa\0";
-	char string3[] = "aaeeaae\0";
-
-	printf("Result is: %d\n", countSubStr((const char *) string1, (const char *) string2, 0));
-	printf("Result is: %d\n", countSubStr((const char *) string1, (const char *) string3, 1));
-
-}
 /**
  * get the length of a char array given pointer to it's first memory address.
- * iterate over the memory addresses until NULL is found.
- * returns
+ * iterate over the memory addresses until NULL is found, or 1024 chars are reached. cuz that's just too many anyways.
+ * returns the number of chars counted.
  */
 unsigned short getActualArrayLength(const char *pStr)
 {
@@ -33,17 +21,6 @@ unsigned short getActualArrayLength(const char *pStr)
 	}
 	return temp;
 }
-///**
-// * given two memory addresses (pointer to source, pointer to dest) and an array length, copy all data from src to dest.
-// */
-//void populateArray(char *dest, unsigned int length, const char *src)
-//{
-//	for (int j = 0; j < length; ++j)
-//	{
-//		*(dest + j) = *(src + j);
-//	}
-//
-//}
 /**
  * get two pointers to a String and a Word. find how many occurrances of the word are in the string.
  * 3rd argument "isCyclic" determines whether to wrap back at the end of the string.
@@ -55,20 +32,12 @@ unsigned int countSubStr(const char *str1, const char *str2, int isCyclic)
 	str1Length = getActualArrayLength(str1);
 	str2Length = getActualArrayLength(str2);
 
-//	char actualString1[str1Length];
-//	char actualString2[str2Length];
-
-//	populateArray(actualString1, str1Length, str1);
-//	populateArray(actualString2, str2Length, str2);
-
-	// end making arrays.
-
 	for (int i = 0; i < str1Length;i++)
 
 	{
 		for (int j = 0; j < str2Length;)
 		{
-			if (*(str1 +i + j) == NULLCHAR && isCyclic)
+			if (*(str1 +i + j) == LINE_END && isCyclic)
 			{
 				i = -j;
 				isCyclic = 0;
@@ -93,7 +62,5 @@ unsigned int countSubStr(const char *str1, const char *str2, int isCyclic)
 
 
 	}
-	printf("counter is at: %d\n", counter);
-
 
 }
