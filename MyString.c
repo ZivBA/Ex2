@@ -9,7 +9,7 @@
 unsigned short getActualArrayLength(const char *pStr)
 {
 	unsigned short temp = 0;
-	while (*(pStr + temp) != NULL)
+	while (*(pStr + temp) != '\0')
 	{
 		temp++;
 
@@ -37,7 +37,7 @@ unsigned int countSubStr(const char *str1, const char *str2, int isCyclic)
 	{
 		for (int j = 0; j < str2Length;)
 		{
-			if (*(str1 +i + j) == LINE_END && isCyclic)
+			if (*(str1 +i + j) == '\0' && isCyclic)
 			{
 				i = -j;
 				isCyclic = 0;
@@ -62,5 +62,6 @@ unsigned int countSubStr(const char *str1, const char *str2, int isCyclic)
 
 
 	}
+	return counter;
 
 }
